@@ -8,7 +8,7 @@ public class GetUsersHandler(IUserRepository userRepository, IMapper mapper) : I
 {
     public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
     {
-        var customers = await userRepository.GetCustomersAsync(cancellationToken);
+        var customers = await userRepository.GetUsersAsync(cancellationToken);
 
         var customersDto = mapper.Map<IEnumerable<User>>(customers);
 

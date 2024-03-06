@@ -11,7 +11,7 @@ public class AuthenticateUserHandler(IUserRepository userRepository, IMapper map
     {
         var cpf = request.cpf.Replace(".", string.Empty).Replace("-", string.Empty);
 
-        var customerByCpf = await userRepository.GetCustomerByCPFAsync(cpf, cancellationToken)
+        var customerByCpf = await userRepository.GetUserByCPFAsync(cpf, cancellationToken)
             ?? throw new ObjectNotFoundException("Usuário não encontrado para esse CPF");
 
         return mapper.Map<AuthenticateUserResponse>(customerByCpf);

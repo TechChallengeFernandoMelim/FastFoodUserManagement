@@ -1,4 +1,7 @@
-﻿using FastFoodManagement.Infrastructure.Persistance.Repositories;
+﻿using Amazon.DynamoDBv2;
+using Amazon.Runtime;
+using FastFoodManagement.Infrastructure.Persistance;
+using FastFoodManagement.Infrastructure.Persistance.Repositories;
 using FastFoodUserManagement.Application.UseCases;
 using FastFoodUserManagement.Domain.Contracts.Repositories;
 using FastFoodUserManagement.Domain.Validations;
@@ -31,29 +34,30 @@ public static class DependencyInjection
 
     private static void ConfigureMediatr(IServiceCollection services)
     {
-
-
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.LoadFrom(pathToApplicationAssembly)));
-
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
     }
 
     private static void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
     {
+        var clientConfig = new AmazonDynamoDBConfig();
+        clientConfig.RegionEndpoint = Amazon.RegionEndpoint.USEast1;
+        string accessKey = configuration.GetSection("Database:AccessKey").Value;
+        string secretKey = configuration.GetSection("Database:SecretKey").Value;
 
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+
+        services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(credentials, clientConfig));
     }
 
     private static void ConfigureRepositories(IServiceCollection services)
-    {
-        services.AddScoped<IUserRepository, UserRepository>();
-    }
+        => services.AddScoped<IUserRepository, UserRepository>();
 
     private static void ConfigureNotificationServices(IServiceCollection services)
-    =>
-        services.AddScoped<IValidationNotifications, ValidationNotifications>();
-    
+        => services.AddScoped<IValidationNotifications, ValidationNotifications>();
+
 
     private static void ConfigureValidators(IServiceCollection services)
-       => services.AddValidatorsFromAssembly(Assembly.LoadFrom(pathToApplicationAssembly));
+        => services.AddValidatorsFromAssembly(Assembly.LoadFrom(pathToApplicationAssembly));
 }
 

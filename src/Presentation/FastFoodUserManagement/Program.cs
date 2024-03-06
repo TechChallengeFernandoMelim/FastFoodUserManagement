@@ -1,3 +1,4 @@
+using FastFoodManagement.Infrastructure.Persistance;
 using FastFoodUserManagement.Infrastructure.IoC;
 using FastFoodUserManagement.Middlewares;
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 // package will act as the webserver translating request and responses between the Lambda event source and ASP.NET Core.
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
 
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(DatabaseSettings.KeyName));
 builder.Services.ConfigureServices(builder.Configuration);
 
 var app = builder.Build();

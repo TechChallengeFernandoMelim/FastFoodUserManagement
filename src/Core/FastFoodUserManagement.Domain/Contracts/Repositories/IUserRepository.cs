@@ -4,7 +4,7 @@ namespace FastFoodUserManagement.Domain.Contracts.Repositories;
 
 public interface IUserRepository
 {
-    Task AddCustomerAsync(UserEntity customer, CancellationToken cancellationToken);
-    Task<UserEntity> GetCustomerByCPFAsync(string identification, CancellationToken cancellationToken);
-    Task<IEnumerable<UserEntity>> GetCustomersAsync(CancellationToken cancellationToken);
+    Task<bool> AddUserAsync(UserEntity customer, CancellationToken cancellationToken);
+    Task<UserEntity> GetUserByCPFAsync(string identification, CancellationToken cancellationToken);
+    Task<IEnumerable<UserEntity>> GetUsersAsync(CancellationToken cancellationToken);
 }

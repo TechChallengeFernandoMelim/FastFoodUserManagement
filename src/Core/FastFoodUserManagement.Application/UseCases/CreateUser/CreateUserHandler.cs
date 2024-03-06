@@ -12,14 +12,14 @@ public class CreateUserHandler(IUserRepository userRepository, IMapper mapper, I
     {
         var customer = mapper.Map<UserEntity>(request);
 
-        var existingCustomer = await userRepository.GetCustomerByCPFAsync(customer.Identification, cancellationToken);
+        var existingCustomer = await userRepository.GetUserByCPFAsync(customer.Identification, cancellationToken);
 
         if (existingCustomer != null)
             validationNotifications.AddError("Identification", "Já existe um usuário cadastrado com esse CPF.");
         else
         {
             customer.Identification = customer.Identification.Replace(".", string.Empty).Replace("-", string.Empty);
-            await userRepository.AddCustomerAsync(customer, cancellationToken);
+            await userRepository.AddUserAsync(customer, cancellationToken);
         }
 
         return new CreateUserResponse();
