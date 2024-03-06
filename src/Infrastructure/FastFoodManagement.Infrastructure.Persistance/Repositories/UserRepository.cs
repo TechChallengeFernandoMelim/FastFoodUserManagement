@@ -13,7 +13,6 @@ public class UserRepository(IAmazonDynamoDB dynamoDb, IOptions<DatabaseSettings>
 {
     public async Task<bool> AddUserAsync(UserEntity user, CancellationToken cancellationToken)
     {
-        user.Id = Guid.NewGuid().ToString();
         var userAsJson = JsonSerializer.Serialize(user);
         var itemAsDocument = Document.FromJson(userAsJson);
         var itemAsAttribute = itemAsDocument.ToAttributeMap();
@@ -62,14 +61,12 @@ public class UserRepository(IAmazonDynamoDB dynamoDb, IOptions<DatabaseSettings>
 
         var users = response.Items.Select(item =>
         {
-            var user = new UserEntity
+            return new UserEntity
             {
-                Id = item.ContainsKey("id") ? item["id"].S : null,
                 Identification = item.ContainsKey("identification") ? item["identification"].S : null,
                 Name = item.ContainsKey("name") ? item["name"].S : null,
                 Email = item.ContainsKey("email") ? item["email"].S : null
             };
-            return user;
         });
 
         return users;

@@ -5,13 +5,10 @@ namespace FastFoodUserManagement.Domain.Entities;
 public class UserEntity
 {
     [JsonPropertyName("pk")]
-    public string Pk => Id;
+    public string Pk => Identification;
 
     [JsonPropertyName("sk")]
     public string Sk => Pk;
-
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
