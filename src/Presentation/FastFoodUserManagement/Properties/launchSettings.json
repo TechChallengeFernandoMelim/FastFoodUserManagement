@@ -25,5 +25,10 @@
       "publishAllPorts": true,
       "useSSL": true
     }
+  },
+  "environmentVariables": {
+    "AWS_ACCESS_KEY_DYNAMO": "",
+    "AWS_SECRET_KEY_DYNAMO": "",
+    "AWS_TABLE_NAME_DYNAMO": ""
   }
 }

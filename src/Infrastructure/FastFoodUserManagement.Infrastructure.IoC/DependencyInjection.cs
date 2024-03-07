@@ -20,7 +20,7 @@ public static class DependencyInjection
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
         ConfigureRepositories(services);
-        ConfigureDatabase(services, configuration);
+        ConfigureDatabase(services);
         ConfigureNotificationServices(services);
         ConfigureValidators(services);
         ConfigureMediatr(services);
@@ -38,12 +38,12 @@ public static class DependencyInjection
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
     }
 
-    private static void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
+    private static void ConfigureDatabase(IServiceCollection services)
     {
         var clientConfig = new AmazonDynamoDBConfig();
         clientConfig.RegionEndpoint = Amazon.RegionEndpoint.USEast1;
-        string accessKey = configuration.GetSection("Database:AccessKey").Value;
-        string secretKey = configuration.GetSection("Database:SecretKey").Value;
+        string accessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_DYNAMO");
+        string secretKey = Environment.GetEnvironmentVariable("AWS_SECRET_KEY_DYNAMO");
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 

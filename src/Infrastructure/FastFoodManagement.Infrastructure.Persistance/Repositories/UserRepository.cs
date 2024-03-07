@@ -3,13 +3,12 @@ using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using FastFoodUserManagement.Domain.Contracts.Repositories;
 using FastFoodUserManagement.Domain.Entities;
-using Microsoft.Extensions.Options;
 using System.Net;
 using System.Text.Json;
 
 namespace FastFoodManagement.Infrastructure.Persistance.Repositories;
 
-public class UserRepository(IAmazonDynamoDB dynamoDb, IOptions<DatabaseSettings> options) : IUserRepository
+public class UserRepository(IAmazonDynamoDB dynamoDb) : IUserRepository
 {
     public async Task<bool> AddUserAsync(UserEntity user, CancellationToken cancellationToken)
     {
@@ -19,7 +18,7 @@ public class UserRepository(IAmazonDynamoDB dynamoDb, IOptions<DatabaseSettings>
 
         var createItemRequest = new PutItemRequest
         {
-            TableName = options.Value.TableName,
+            TableName = Environment.GetEnvironmentVariable("AWS_TABLE_NAME_DYNAMO"),
             Item = itemAsAttribute
         };
 
@@ -31,7 +30,7 @@ public class UserRepository(IAmazonDynamoDB dynamoDb, IOptions<DatabaseSettings>
     {
         var request = new ScanRequest
         {
-            TableName = options.Value.TableName,
+            TableName = Environment.GetEnvironmentVariable("AWS_TABLE_NAME_DYNAMO"),
             FilterExpression = "identification = :identification",
             ExpressionAttributeValues = new Dictionary<string, AttributeValue>
             {
@@ -52,7 +51,7 @@ public class UserRepository(IAmazonDynamoDB dynamoDb, IOptions<DatabaseSettings>
     {
         var request = new ScanRequest
         {
-            TableName = options.Value.TableName
+            TableName = Environment.GetEnvironmentVariable("AWS_TABLE_NAME_DYNAMO")
         };
 
         var response = await dynamoDb.ScanAsync(request, cancellationToken);
