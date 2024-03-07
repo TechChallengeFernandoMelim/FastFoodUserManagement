@@ -23,7 +23,9 @@
         "ASPNETCORE_HTTP_PORTS": "8080",
         "AWS_ACCESS_KEY_DYNAMO": "",
         "AWS_SECRET_KEY_DYNAMO": "",
-        "AWS_TABLE_NAME_DYNAMO": ""
+        "AWS_TABLE_NAME_DYNAMO": "",
+        "LOG_REGION": "",
+        "LOG_GROUP": ""
       },
       "publishAllPorts": true,
       "useSSL": true

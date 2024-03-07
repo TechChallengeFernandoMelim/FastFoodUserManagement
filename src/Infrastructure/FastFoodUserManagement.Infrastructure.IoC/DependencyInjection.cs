@@ -1,6 +1,5 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.Runtime;
-using FastFoodManagement.Infrastructure.Persistance;
 using FastFoodManagement.Infrastructure.Persistance.Repositories;
 using FastFoodUserManagement.Application.UseCases;
 using FastFoodUserManagement.Domain.Contracts.Repositories;
@@ -9,6 +8,9 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NLog;
+using NLog.AWS.Logger;
+using NLog.Config;
 using System.Reflection;
 
 namespace FastFoodUserManagement.Infrastructure.IoC;
@@ -19,12 +21,37 @@ public static class DependencyInjection
 
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
+        ConfigureLogging(services);
         ConfigureRepositories(services);
         ConfigureDatabase(services);
         ConfigureNotificationServices(services);
         ConfigureValidators(services);
         ConfigureMediatr(services);
         ConfigureAutomapper(services);
+    }
+
+    private static void ConfigureLogging(IServiceCollection services)
+    {
+        string accessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_DYNAMO");
+        string secretKey = Environment.GetEnvironmentVariable("AWS_SECRET_KEY_DYNAMO");
+
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+
+        var config = new LoggingConfiguration();
+
+        config.AddRule(NLog.LogLevel.Trace, NLog.LogLevel.Fatal, new AWSTarget()
+        {
+            LogGroup = Environment.GetEnvironmentVariable("LOG_GROUP"),
+            Region = Environment.GetEnvironmentVariable("LOG_REGION"),
+            Credentials = credentials
+        });
+
+
+        LogManager.Configuration = config;
+
+        var log = LogManager.GetCurrentClassLogger();
+
+        services.AddSingleton<Logger>(log);
     }
 
     private static void ConfigureAutomapper(IServiceCollection services)

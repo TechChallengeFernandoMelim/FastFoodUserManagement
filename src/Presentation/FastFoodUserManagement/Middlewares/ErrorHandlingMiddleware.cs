@@ -1,19 +1,13 @@
 ﻿using FastFoodUserManagement.Application.UseCases;
 using FastFoodUserManagement.Domain.Exceptions;
+using NLog;
 using System.Net;
 using System.Text.Json;
 
 namespace FastFoodUserManagement.Middlewares;
 
-public class ErrorHandlingMiddleware
+public class ErrorHandlingMiddleware(RequestDelegate next, Logger logger)
 {
-    private readonly RequestDelegate _next;
-
-    public ErrorHandlingMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
-
     public async Task Invoke(HttpContext context)
     {
         var response = context.Response;
@@ -22,7 +16,7 @@ public class ErrorHandlingMiddleware
 
         try
         {
-            await _next(context);
+            await next(context);
         }
         catch (ObjectNotFoundException ex)
         {
@@ -32,6 +26,8 @@ public class ErrorHandlingMiddleware
             {
                 new KeyValuePair<string, List<string>>("ObjectNotFoundException", new List<string>() { "O item solicitado não foi encontrado" })
             };
+
+            logger.Log(NLog.LogLevel.Info, $"ObjectNotFoundException: {ex}");
 
             await response.WriteAsync(JsonSerializer.Serialize(result));
         }
@@ -48,6 +44,8 @@ public class ErrorHandlingMiddleware
 
             result.Errors = errorsList;
 
+            logger.Log(NLog.LogLevel.Info, $"ValidationException: {ex}");
+
             await response.WriteAsync(JsonSerializer.Serialize(result));
         }
         catch (Exception ex)
@@ -58,6 +56,8 @@ public class ErrorHandlingMiddleware
             {
                 new KeyValuePair<string, List<string>>("InternalServerError", new List<string>() { "Internal server error" })
             };
+
+            logger.Log(NLog.LogLevel.Fatal, $"Exception: {ex}");
 
             await response.WriteAsync(JsonSerializer.Serialize(result));
         }
