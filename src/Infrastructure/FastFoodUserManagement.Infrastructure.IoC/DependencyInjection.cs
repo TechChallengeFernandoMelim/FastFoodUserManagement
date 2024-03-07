@@ -1,9 +1,12 @@
-﻿using Amazon.DynamoDBv2;
+﻿using Amazon.CognitoIdentityProvider;
+using Amazon.DynamoDBv2;
 using Amazon.Runtime;
 using FastFoodManagement.Infrastructure.Persistance.Repositories;
 using FastFoodUserManagement.Application.UseCases;
+using FastFoodUserManagement.Domain.Contracts.Authentication;
 using FastFoodUserManagement.Domain.Contracts.Repositories;
 using FastFoodUserManagement.Domain.Validations;
+using FastFoodUserManagement.Infrastructure.Cognito.Creation;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +24,7 @@ public static class DependencyInjection
 
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
+        ConfigureCognito(services);
         ConfigureLogging(services);
         ConfigureRepositories(services);
         ConfigureDatabase(services);
@@ -28,6 +32,20 @@ public static class DependencyInjection
         ConfigureValidators(services);
         ConfigureMediatr(services);
         ConfigureAutomapper(services);
+    }
+
+    private static void ConfigureCognito(IServiceCollection services)
+    {
+        string accessKey = Environment.GetEnvironmentVariable("AWS_ACCESS_KEY_DYNAMO");
+        string secretKey = Environment.GetEnvironmentVariable("AWS_SECRET_KEY_DYNAMO");
+
+        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+
+        var config = new AmazonCognitoIdentityProviderConfig();
+
+        var cognitoProvider = new AmazonCognitoIdentityProviderClient(credentials, Amazon.RegionEndpoint.USEast1);
+
+        services.AddSingleton(cognitoProvider);
     }
 
     private static void ConfigureLogging(IServiceCollection services)
@@ -51,7 +69,8 @@ public static class DependencyInjection
 
         var log = LogManager.GetCurrentClassLogger();
 
-        services.AddSingleton<Logger>(log);
+        services.AddSingleton(log);
+        services.AddSingleton<IUserCreation, CognitoUserCreation>();
     }
 
     private static void ConfigureAutomapper(IServiceCollection services)

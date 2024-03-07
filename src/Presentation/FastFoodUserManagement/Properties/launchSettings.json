@@ -25,7 +25,8 @@
         "AWS_SECRET_KEY_DYNAMO": "",
         "AWS_TABLE_NAME_DYNAMO": "",
         "LOG_REGION": "",
-        "LOG_GROUP": ""
+        "LOG_GROUP": "",
+        "AWS_USER_POOL_ID": "
       },
       "publishAllPorts": true,
       "useSSL": true

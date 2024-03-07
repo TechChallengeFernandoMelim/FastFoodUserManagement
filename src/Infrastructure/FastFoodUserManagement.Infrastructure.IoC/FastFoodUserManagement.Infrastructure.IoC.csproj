@@ -19,6 +19,7 @@
 		<ProjectReference Include="..\..\Core\FastFoodUserManagement.Application\FastFoodUserManagement.Application.csproj" />
 		<ProjectReference Include="..\..\Core\FastFoodUserManagement.Domain\FastFoodUserManagement.Domain.csproj" />
 		<ProjectReference Include="..\FastFoodManagement.Infrastructure.Persistance\FastFoodManagement.Infrastructure.Persistance.csproj" />
+		<ProjectReference Include="..\FastFoodUserManagement.Infrastructure.Cognito\FastFoodUserManagement.Infrastructure.Cognito.csproj" />
 	</ItemGroup>
 
 </Project>

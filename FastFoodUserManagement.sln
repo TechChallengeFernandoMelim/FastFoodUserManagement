@@ -11,15 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{11475E65-B702-45B1-9D8A-9FA1069A2291}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastFoodUserManagement.Domain", "src\Core\FastFoodUserManagement.Domain\FastFoodUserManagement.Domain.csproj", "{43544CAA-5210-4312-A317-7FFFE6650680}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodUserManagement.Domain", "src\Core\FastFoodUserManagement.Domain\FastFoodUserManagement.Domain.csproj", "{43544CAA-5210-4312-A317-7FFFE6650680}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastFoodUserManagement.Application", "src\Core\FastFoodUserManagement.Application\FastFoodUserManagement.Application.csproj", "{0BD8842F-2ACF-40FB-A9BF-1D6D227D1DA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodUserManagement.Application", "src\Core\FastFoodUserManagement.Application\FastFoodUserManagement.Application.csproj", "{0BD8842F-2ACF-40FB-A9BF-1D6D227D1DA2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodUserManagement", "src\Presentation\FastFoodUserManagement\FastFoodUserManagement.csproj", "{18181ABF-5992-475E-AEB4-0B53F3F333FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastFoodManagement.Infrastructure.Persistance", "src\Infrastructure\FastFoodManagement.Infrastructure.Persistance\FastFoodManagement.Infrastructure.Persistance.csproj", "{299D13A5-56A4-4569-8B08-6EDF8D5769E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodManagement.Infrastructure.Persistance", "src\Infrastructure\FastFoodManagement.Infrastructure.Persistance\FastFoodManagement.Infrastructure.Persistance.csproj", "{299D13A5-56A4-4569-8B08-6EDF8D5769E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastFoodUserManagement.Infrastructure.IoC", "src\Infrastructure\FastFoodUserManagement.Infrastructure.IoC\FastFoodUserManagement.Infrastructure.IoC.csproj", "{70CB69B6-9849-4807-8678-137EE039ED3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodUserManagement.Infrastructure.IoC", "src\Infrastructure\FastFoodUserManagement.Infrastructure.IoC\FastFoodUserManagement.Infrastructure.IoC.csproj", "{70CB69B6-9849-4807-8678-137EE039ED3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastFoodUserManagement.Infrastructure.Cognito", "src\Infrastructure\FastFoodUserManagement.Infrastructure.Cognito\FastFoodUserManagement.Infrastructure.Cognito.csproj", "{2C9942B7-E05D-4435-819C-1A1463E01119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{70CB69B6-9849-4807-8678-137EE039ED3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70CB69B6-9849-4807-8678-137EE039ED3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70CB69B6-9849-4807-8678-137EE039ED3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C9942B7-E05D-4435-819C-1A1463E01119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C9942B7-E05D-4435-819C-1A1463E01119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C9942B7-E05D-4435-819C-1A1463E01119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C9942B7-E05D-4435-819C-1A1463E01119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{18181ABF-5992-475E-AEB4-0B53F3F333FF} = {11475E65-B702-45B1-9D8A-9FA1069A2291}
 		{299D13A5-56A4-4569-8B08-6EDF8D5769E6} = {27C63395-379D-4898-ACD2-0474A46C8643}
 		{70CB69B6-9849-4807-8678-137EE039ED3C} = {27C63395-379D-4898-ACD2-0474A46C8643}
+		{2C9942B7-E05D-4435-819C-1A1463E01119} = {27C63395-379D-4898-ACD2-0474A46C8643}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B2B3327C-F1B3-4943-885D-C474E9F2C1A2}
