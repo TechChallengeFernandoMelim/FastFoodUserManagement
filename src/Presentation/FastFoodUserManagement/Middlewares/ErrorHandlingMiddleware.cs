@@ -27,8 +27,6 @@ public class ErrorHandlingMiddleware(RequestDelegate next, Logger logger)
                 new KeyValuePair<string, List<string>>("ObjectNotFoundException", new List<string>() { "O item solicitado não foi encontrado" })
             };
 
-            logger.Log(NLog.LogLevel.Info, $"ObjectNotFoundException: {ex}");
-
             await response.WriteAsync(JsonSerializer.Serialize(result));
         }
         catch (ValidationException ex)
@@ -43,8 +41,6 @@ public class ErrorHandlingMiddleware(RequestDelegate next, Logger logger)
                 errorsList.Add(error);
 
             result.Errors = errorsList;
-
-            logger.Log(NLog.LogLevel.Info, $"ValidationException: {ex}");
 
             await response.WriteAsync(JsonSerializer.Serialize(result));
         }
