@@ -19,6 +19,6 @@ public class UserEntity
     [JsonPropertyName("identification")]
     public string Identification { get; set; }
 
-    [JsonPropertyName("clientid")]
-    public string ClientId { get; set; }
+    [JsonPropertyName("cognitoUserIdentification")]
+    public string CognitoUserIdentification { get; set; }
 }

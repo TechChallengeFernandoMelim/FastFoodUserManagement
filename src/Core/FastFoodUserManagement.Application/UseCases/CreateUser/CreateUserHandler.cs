@@ -24,8 +24,8 @@ public class CreateUserHandler(
             validationNotifications.AddError("Identification", "Já existe um usuário cadastrado com esse CPF.");
         else
         {
-            var clientId = await userCreation.CreateUser(user, cancellationToken);
-            user.ClientId = clientId;
+            var cognitoUserIdentification = await userCreation.CreateUser(user, cancellationToken);
+            user.CognitoUserIdentification = cognitoUserIdentification;
             await userRepository.AddUserAsync(user, cancellationToken);
         }
 
