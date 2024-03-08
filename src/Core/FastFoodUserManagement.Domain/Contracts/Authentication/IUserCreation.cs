@@ -4,5 +4,5 @@ namespace FastFoodUserManagement.Domain.Contracts.Authentication;
 
 public interface IUserCreation
 {
-    Task CreateUser(UserEntity user, CancellationToken cancellationToken);
+    Task<string> CreateUser(UserEntity user, CancellationToken cancellationToken);
 }

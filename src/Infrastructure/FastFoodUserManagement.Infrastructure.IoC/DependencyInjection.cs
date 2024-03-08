@@ -6,6 +6,7 @@ using FastFoodUserManagement.Application.UseCases;
 using FastFoodUserManagement.Domain.Contracts.Authentication;
 using FastFoodUserManagement.Domain.Contracts.Repositories;
 using FastFoodUserManagement.Domain.Validations;
+using FastFoodUserManagement.Infrastructure.Cognito.Authentication;
 using FastFoodUserManagement.Infrastructure.Cognito.Creation;
 using FluentValidation;
 using MediatR;
@@ -46,6 +47,8 @@ public static class DependencyInjection
         var cognitoProvider = new AmazonCognitoIdentityProviderClient(credentials, Amazon.RegionEndpoint.USEast1);
 
         services.AddSingleton(cognitoProvider);
+        services.AddSingleton<IUserCreation, CognitoUserCreation>();
+        services.AddSingleton<IUserAuthentication, CognitoUserAuthentication>();
     }
 
     private static void ConfigureLogging(IServiceCollection services)
@@ -70,7 +73,6 @@ public static class DependencyInjection
         var log = LogManager.GetCurrentClassLogger();
 
         services.AddSingleton(log);
-        services.AddSingleton<IUserCreation, CognitoUserCreation>();
     }
 
     private static void ConfigureAutomapper(IServiceCollection services)

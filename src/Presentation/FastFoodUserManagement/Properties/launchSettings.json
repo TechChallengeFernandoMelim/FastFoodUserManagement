@@ -26,7 +26,8 @@
         "AWS_TABLE_NAME_DYNAMO": "",
         "LOG_REGION": "",
         "LOG_GROUP": "",
-        "AWS_USER_POOL_ID": "
+        "AWS_USER_POOL_ID": "",
+        "AWS_CLIENT_NAME_COGNITO": ""
       },
       "publishAllPorts": true,
       "useSSL": true

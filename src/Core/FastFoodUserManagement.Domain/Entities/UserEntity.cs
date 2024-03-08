@@ -18,4 +18,7 @@ public class UserEntity
 
     [JsonPropertyName("identification")]
     public string Identification { get; set; }
+
+    [JsonPropertyName("clientid")]
+    public string ClientId { get; set; }
 }

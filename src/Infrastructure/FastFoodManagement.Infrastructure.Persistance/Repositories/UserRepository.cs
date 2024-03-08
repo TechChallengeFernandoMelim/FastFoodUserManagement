@@ -64,7 +64,8 @@ public class UserRepository(IAmazonDynamoDB dynamoDb) : IUserRepository
             {
                 Identification = item.ContainsKey("identification") ? item["identification"].S : null,
                 Name = item.ContainsKey("name") ? item["name"].S : null,
-                Email = item.ContainsKey("email") ? item["email"].S : null
+                Email = item.ContainsKey("email") ? item["email"].S : null,
+                ClientId = item.ContainsKey("clientid") ? item["clientid"].S : null
             };
         });
 

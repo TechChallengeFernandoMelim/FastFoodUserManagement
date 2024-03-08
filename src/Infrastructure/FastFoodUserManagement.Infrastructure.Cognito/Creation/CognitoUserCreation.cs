@@ -7,9 +7,7 @@ namespace FastFoodUserManagement.Infrastructure.Cognito.Creation;
 
 public class CognitoUserCreation(AmazonCognitoIdentityProviderClient cognito) : IUserCreation
 {
-
-
-    public async Task CreateUser(UserEntity user, CancellationToken cancellationToken)
+    public async Task<string> CreateUser(UserEntity user, CancellationToken cancellationToken)
     {
         var userPoolId = Environment.GetEnvironmentVariable("AWS_USER_POOL_ID");
 
@@ -30,5 +28,7 @@ public class CognitoUserCreation(AmazonCognitoIdentityProviderClient cognito) : 
         };
 
         await cognito.AdminSetUserPasswordAsync(setPassword, cancellationToken);
+
+        return response.User.Username;
     }
 }
