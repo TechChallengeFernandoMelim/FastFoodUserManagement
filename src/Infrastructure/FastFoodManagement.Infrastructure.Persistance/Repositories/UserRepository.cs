@@ -26,15 +26,16 @@ public class UserRepository(IAmazonDynamoDB dynamoDb) : IUserRepository
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
-    public async Task<UserEntity> GetUserByCPFAsync(string identification, CancellationToken cancellationToken)
+    public async Task<UserEntity> GetUserByCPFOrEmailAsync(string identification, string email, CancellationToken cancellationToken)
     {
         var request = new ScanRequest
         {
             TableName = Environment.GetEnvironmentVariable("AWS_TABLE_NAME_DYNAMO"),
-            FilterExpression = "identification = :identification",
+            FilterExpression = "identification = :identification OR email = :email",
             ExpressionAttributeValues = new Dictionary<string, AttributeValue>
             {
-                { ":identification", new AttributeValue { S = identification } }
+                { ":identification", new AttributeValue { S = identification } },
+                { ":email", new AttributeValue { S = email } }
             }
         };
 

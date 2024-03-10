@@ -18,10 +18,10 @@ public class CreateUserHandler(
         var user = mapper.Map<UserEntity>(request);
         user.Identification = user.Identification.Replace(".", string.Empty).Replace("-", string.Empty);
 
-        var existingCustomer = await userRepository.GetUserByCPFAsync(user.Identification, cancellationToken);
+        var existingCustomer = await userRepository.GetUserByCPFOrEmailAsync(user.Identification, user.Email, cancellationToken);
 
         if (existingCustomer != null)
-            validationNotifications.AddError("Identification", "Já existe um usuário cadastrado com esse CPF.");
+            validationNotifications.AddError("Identification", "Já existe um usuário cadastrado com esse CPF ou e-mail.");
         else
         {
             var cognitoUserIdentification = await userCreation.CreateUser(user, cancellationToken);
