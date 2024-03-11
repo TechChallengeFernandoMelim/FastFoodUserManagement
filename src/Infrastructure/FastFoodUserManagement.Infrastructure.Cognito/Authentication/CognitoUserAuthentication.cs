@@ -37,6 +37,6 @@ public class CognitoUserAuthentication(AmazonCognitoIdentityProviderClient cogni
         };
 
         var response = await cognito.AdminInitiateAuthAsync(request, cancellationToken);
-        return response.AuthenticationResult.AccessToken;
+        return response.AuthenticationResult.IdToken;
     }
 }
