@@ -8,7 +8,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(DatabaseSettings.KeyName));
 builder.Services.ConfigureServices(builder.Configuration);
 
 var app = builder.Build();

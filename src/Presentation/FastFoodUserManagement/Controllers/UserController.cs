@@ -1,4 +1,5 @@
 ﻿using FastFoodUserManagement.Application.UseCases;
+using FastFoodUserManagement.Application.UseCases.AuthenticateAsGuest;
 using FastFoodUserManagement.Application.UseCases.AuthenticateUser;
 using FastFoodUserManagement.Application.UseCases.CreateUser;
 using FastFoodUserManagement.Application.UseCases.GetUsers;
@@ -13,7 +14,7 @@ namespace FastFoodUserManagement.Controllers;
 public class UserController(IValidationNotifications validationNotifications, IMediator mediator) : BaseController(validationNotifications)
 {
     /// <summary>
-    /// Create a new customer.
+    /// Create a new user.
     /// </summary>
     /// <returns>Id of customer created</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiBaseResponse<CreateUserResponse>))]
@@ -29,9 +30,9 @@ public class UserController(IValidationNotifications validationNotifications, IM
     }
 
     /// <summary>
-    /// Retrieve a customer by cpf.
+    /// Authenticate user.
     /// </summary>
-    /// <returns>Customer</returns>
+    /// <returns>User with token</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiBaseResponse<AuthenticateUserResponse>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiBaseResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiBaseResponse))]
@@ -45,9 +46,25 @@ public class UserController(IValidationNotifications validationNotifications, IM
     }
 
     /// <summary>
-    /// Retrieve a list of all customers.
+    /// Authenticate as guest
     /// </summary>
-    /// <returns>List of customers</returns>
+    /// <returns>Token</returns>
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiBaseResponse<AuthenticateAsGuestResponse>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiBaseResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiBaseResponse))]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(ApiBaseResponse<AuthenticateAsGuestResponse>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiBaseResponse))]
+    [HttpGet("AuthenticateAsGuest")]
+    public async Task<IActionResult> AuthenticateAsGuest(CancellationToken cancellationToken)
+    {
+        var data = await mediator.Send(new AuthenticateAsGuestRequest(), cancellationToken);
+        return await Return(new ApiBaseResponse<AuthenticateAsGuestResponse>() { Data = data });
+    }
+
+    /// <summary>
+    /// Retrieve a list of all users.
+    /// </summary>
+    /// <returns>List of users</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiBaseResponse<GetUsersResponse>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiBaseResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiBaseResponse))]

@@ -27,7 +27,9 @@
         "LOG_REGION": "",
         "LOG_GROUP": "",
         "AWS_USER_POOL_ID": "",
-        "AWS_CLIENT_NAME_COGNITO": ""
+        "AWS_CLIENT_ID_COGNITO": "",
+        "GUEST_EMAIL": "",
+        "GUEST_IDENTIFICATION":  ""
       },
       "publishAllPorts": true,
       "useSSL": true
