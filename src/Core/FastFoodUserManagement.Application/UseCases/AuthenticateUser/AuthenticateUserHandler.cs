@@ -15,10 +15,8 @@ public class AuthenticateUserHandler(IUserRepository userRepository, IMapper map
         var user = await userRepository.GetUserByCPFOrEmailAsync(cpf, string.Empty, cancellationToken)
             ?? throw new ObjectNotFoundException("Usuário não encontrado para esse CPF");
 
-        var token = await userAuthentication.AuthenticateUser(user, cancellationToken);
-
         var response = mapper.Map<AuthenticateUserResponse>(user);
-        response.Token = token;
+        response.Token = await userAuthentication.AuthenticateUser(user, cancellationToken);
 
         return response;
     }

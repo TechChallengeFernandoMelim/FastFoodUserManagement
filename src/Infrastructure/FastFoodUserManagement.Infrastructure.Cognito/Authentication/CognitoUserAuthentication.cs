@@ -2,15 +2,17 @@
 using Amazon.CognitoIdentityProvider.Model;
 using FastFoodUserManagement.Domain.Contracts.Authentication;
 using FastFoodUserManagement.Domain.Entities;
-using System.Security.Cryptography;
-using System.Text;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace FastFoodUserManagement.Infrastructure.Cognito.Authentication;
 
-public class CognitoUserAuthentication(AmazonCognitoIdentityProviderClient cognito) : IUserAuthentication
+public class CognitoUserAuthentication(AmazonCognitoIdentityProviderClient cognito, IMemoryCache cache) : IUserAuthentication
 {
     public async Task<string> AuthenticateUser(UserEntity user, CancellationToken cancellationToken)
     {
+        if (cache.TryGetValue(user.Identification, out string cachedToken))
+            return cachedToken;
+
         var userPoolId = Environment.GetEnvironmentVariable("AWS_USER_POOL_ID");
         var clientId = Environment.GetEnvironmentVariable("AWS_CLIENT_ID_COGNITO");
 
@@ -29,6 +31,9 @@ public class CognitoUserAuthentication(AmazonCognitoIdentityProviderClient cogni
         };
 
         var response = await cognito.AdminInitiateAuthAsync(request, cancellationToken);
+
+        cache.Set(user.Identification, response.AuthenticationResult.IdToken, TimeSpan.FromMinutes(30));
+
         return response.AuthenticationResult.IdToken;
     }
 }

@@ -8,6 +8,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
+builder.Services.AddMemoryCache();
 builder.Services.ConfigureServices(builder.Configuration);
 
 var app = builder.Build();
