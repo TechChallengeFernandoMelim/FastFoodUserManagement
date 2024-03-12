@@ -12,15 +12,7 @@ public class CognitoUserAuthentication(AmazonCognitoIdentityProviderClient cogni
     public async Task<string> AuthenticateUser(UserEntity user, CancellationToken cancellationToken)
     {
         var userPoolId = Environment.GetEnvironmentVariable("AWS_USER_POOL_ID");
-        var clientName = Environment.GetEnvironmentVariable("AWS_CLIENT_NAME_COGNITO");
-
-        var clientId = (await cognito.ListUserPoolClientsAsync(
-            new ListUserPoolClientsRequest()
-            {
-                UserPoolId = userPoolId,
-            }
-        ))
-        .UserPoolClients.First(x => x.ClientName == clientName).ClientId;
+        var clientId = Environment.GetEnvironmentVariable("AWS_CLIENT_ID_COGNITO");
 
         var authParameters = new Dictionary<string, string>
         {
