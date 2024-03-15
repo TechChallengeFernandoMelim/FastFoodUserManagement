@@ -42,8 +42,8 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
         IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f .\src\Presentation\FastFoodUserManagement\Dockerfile .
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -f .\src\Presentation\FastFoodUserManagement\Dockerfile .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./src/Presentation/FastFoodUserManagement/Dockerfile .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -f ./src/Presentation/FastFoodUserManagement/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
