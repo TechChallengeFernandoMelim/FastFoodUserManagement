@@ -4,17 +4,7 @@ on:
   push:
     branches:
       - master
-  secrets:
-    AWS_ACCOUNT_ID:
-      required: true
-      description: Account ID of the AWS service account
-    AWS_ACCESS_KEY_ID:
-      required: true
-      description: Access key ID of the AWS service account
-    AWS_SECRET_ACCESS_KEY:
-      required: true
-      description: Secret access key of the AWS service account
-
+      
 env:
   ECR_REPOSITORY: ecr-fast_food_user_management
   AWS_REGION: us-east-1
