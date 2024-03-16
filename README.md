@@ -1,26 +1,26 @@
 # FastFoodUserManagement
 
-O repositorio FastFoodUserManagement tem por objetivo implementar uma Lambda Function respons·vel por realizar a criaÁ„o e autenticaÁ„o de usu·rios utilizando o AWS Cognito.
+O repositorio FastFoodUserManagement tem por objetivo implementar uma Lambda Function respons√°vel por realizar a cria√ß√£o e autentica√ß√£o de usu√°rios utilizando o AWS Cognito.
 
-## ExecuÁ„o do proejto
-Para executar o projeto È f·cil, basta apenas definir os valores paras as vari·veis de ambiente dele, que se encontram no launchsettings.json da API que est· presente na camada Presentation.
-ApÛs isso, basta executar o projeto da forma que preferir, nÛs utilizamos o Docker para isso.
+## Execu√ß√£o do proejto
+Para executar o projeto √© f√°cil, basta apenas definir os valores paras as vari√°veis de ambiente dele, que se encontram no launchsettings.json da API que est√° presente na camada Presentation.
+Ap√≥s isso, basta executar o projeto da forma que preferir, n√≥s utilizamos o Docker para isso.
 
 
-### Vari·veis de ambiente
-Todas as vari·veis de ambiente do projeto visam fazer integraÁ„o com algum serviÁo da AWS. Explicaremos a finalidade de cada uma:
+### Vari√°veis de ambiente
+Todas as vari√°veis de ambiente do projeto visam fazer integra√ß√£o com algum servi√ßo da AWS. Explicaremos a finalidade de cada uma:
 
-- AWS_ACCESS_KEY_DYNAMO: "Access key" da AWS. Recurso gerado no IAM para podermos nos conectar aos serviÁos da AWS;
-- AWS_SECRET_KEY_DYNAMO: "Secret key" da AWS. Recurso gerado no IAM para podermos nos conectar aos serviÁos da AWS. Deve ser utilizado corretamente com seu par AWS_ACCESS_KEY_DYNAMO;
-- AWS_TABLE_NAME_DYNAMO: Nome da tabela de usu·rios cadastrada no DynamoDB;
-- LOG_REGION: Regi„o do Log Group criado no Cloudwatch para monitoramento de logs;
+- AWS_ACCESS_KEY_DYNAMO: "Access key" da AWS. Recurso gerado no IAM para podermos nos conectar aos servi√ßos da AWS;
+- AWS_SECRET_KEY_DYNAMO: "Secret key" da AWS. Recurso gerado no IAM para podermos nos conectar aos servi√ßos da AWS. Deve ser utilizado corretamente com seu par AWS_ACCESS_KEY_DYNAMO;
+- AWS_TABLE_NAME_DYNAMO: Nome da tabela de usu√°rios cadastrada no DynamoDB;
+- LOG_REGION: Regi√£o do Log Group criado no Cloudwatch para monitoramento de logs;
 - LOG_GROUP: Nome do Log Group criado no Cloudwatch para monitoramento de logs;
 - AWS_USER_POOL_ID: Nome da user pool criada no AWS Cognito;
 - AWS_CLIENT_ID_COGNITO: ClientId da pool no AWS Cognito;
-- GUEST_EMAIL: Usu·rio padr„o para realizar autenticaÁ„o de forma anÙnima no AWS Cognito;
-- GUEST_IDENTIFICATION: senha do usu·rio padr„o para realizar autenticaÁ„o de forma anÙnima no AWS Cognito.
+- GUEST_EMAIL: Usu√°rio padr√£o para realizar autentica√ß√£o de forma an√¥nima no AWS Cognito;
+- GUEST_IDENTIFICATION: senha do usu√°rio padr√£o para realizar autentica√ß√£o de forma an√¥nima no AWS Cognito.
 
-### ExecuÁ„o com Docker
+### Execu√ß√£o com Docker
 
 Utilize o seguinte comando na pasta raiz do projeto para criar a imagem Docker
 
@@ -50,16 +50,41 @@ ou
 docker run -d -p 8080:8080 -e AWS_ACCESS_KEY_DYNAMO="sua_access_key" -e AWS_SECRET_KEY_DYNAMO="sua_secret_key" -e AWS_TABLE_NAME_DYNAMO="nome_da_tabela" -e LOG_REGION="regiao_do_log_group" -e LOG_GROUP="nome_do_log_group" -e AWS_USER_POOL_ID="id_da_user_pool" -e AWS_CLIENT_ID_COGNITO="client_id_do_cognito" -e GUEST_EMAIL="email_do_usuario_padrao" -e GUEST_IDENTIFICATION="senha_do_usuario_padrao" fast_food_user_management
 ```
 
-Dessa forma o container estar· executando a API.
+Dessa forma o container estar√° executando a API.
 
 ## Arquitetura do projeto
 A seguinte arquitetura foi utilizada para o projeto:
 
 ![Texto Alternativo](./images/ArqLambda.png)
 
-Utilizamos 3 serviÁos da AWS apenas nese projeto: AWS Cognito, Cloudwatch e DynamoDB.
+Utilizamos 3 servi√ßos da AWS apenas nese projeto: AWS Cognito, Cloudwatch e DynamoDB.
 
-Como decidimos utilizar a AWS como plataforma nuvem, utilizamos o AWS Cognito para trabalharmos com gerenciamento dos nossos usu·rios. AtravÈs dela, conseguimos cadastrar e autenticar usu·rios de forma f·cil.
-Para gerenciar melhor os dados do usu·rio, optamos por utilizar o DynamoDB. Por ser um banco estruturado em tabelas e n„o tendo a necessidade de utilizar mais do que uma, pensamos em utiliz·-lo para armazenar os dados dos usu·rios cadastrados. Nessa soluÁ„o, apenas uma tabela foi utilizada, o nome dela deve ser fornecido pela vari·vel de ambiente AWS_TABLE_NAME_DYNAMO. Como apenas uma ˙nica tabela foi utilizada, excluÌmos a necessidade de utilizar um sgbd relacional. Utilizar um NoSQL nos d· uma liberdade maior caso seja necess·rio fazer alteraÁıes no esquema de usu·rios salvo no banco, algo que seria mais complicado de se lidar no modelo relacional, onde terÌamos que nos preocupar com a criaÁ„o do esquema e com o versionamento do mesmo.
-Para lidar com os erros ocorridos na execuÁ„o do cÛdigo fonte, utilizamos o Cloudwatch, onde salvamos todos os logs necess·rios de exceÁıes disparadas durante a execuÁ„o de alguma funcionalidade.
-Conforme foi solicitado, essa soluÁ„o est· sendo publicada como uma Lambda function.
+Como decidimos utilizar a AWS como plataforma nuvem, utilizamos o AWS Cognito para trabalharmos com gerenciamento dos nossos usu√°rios. Atrav√©s dela, conseguimos cadastrar e autenticar usu√°rios de forma f√°cil.
+Para gerenciar melhor os dados do usu√°rio, optamos por utilizar o DynamoDB. Por ser um banco estruturado em tabelas e n√£o tendo a necessidade de utilizar mais do que uma, pensamos em utiliz√°-lo para armazenar os dados dos usu√°rios cadastrados. Nessa solu√ß√£o, apenas uma tabela foi utilizada, o nome dela deve ser fornecido pela vari√°vel de ambiente AWS_TABLE_NAME_DYNAMO. Como apenas uma √∫nica tabela foi utilizada, exclu√≠mos a necessidade de utilizar um sgbd relacional. Utilizar um NoSQL nos d√° uma liberdade maior caso seja necess√°rio fazer altera√ß√µes no esquema de usu√°rios salvo no banco, algo que seria mais complicado de se lidar no modelo relacional, onde ter√≠amos que nos preocupar com a cria√ß√£o do esquema e com o versionamento do mesmo.
+Para lidar com os erros ocorridos na execu√ß√£o do c√≥digo fonte, utilizamos o Cloudwatch, onde salvamos todos os logs necess√°rios de exce√ß√µes disparadas durante a execu√ß√£o de alguma funcionalidade.
+Conforme foi solicitado, essa solu√ß√£o est√° sendo publicada como uma Lambda function.
+
+## Endpoints
+
+Esse projeto possui 4 endpoints:
+
+GET /User/GetUsers -> Respons√°vel por retornar todos os usu√°rios cadastrados na base do cognito.
+
+POST /User/CreateUser -> Respons√°vel por criar um usu√°rio com o seguinte json:
+```
+{
+	"name": "nome_teste",
+	"email": "email@teste.com",
+	"identification": "cpf"
+}
+```
+
+GET /User/AuthenticateUser/{cpf} -> Respons√°vel por autenticar o usu√°rio com seu cpf
+
+GET /User/AuthenticateAsGuest -> Respons√°vel por autenticar o usu√°rio como an√¥nimo
+
+## Outros Reposit√≥rios do trabalho
+
+Terraform: https://github.com/postech-fiap-4soat-g01/aws-infrastructure-live
+
+Monolito: https://github.com/postech-fiap-4soat-g01/FastFoodTotem
