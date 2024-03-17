@@ -12,7 +12,11 @@ O repositorio FastFoodUserManagement tem por objetivo implementar uma Lambda Fun
 Esse projeto tem um workflow de subir a imagem do projeto ao ECR ao realizar o merge para a branch main.
 A atualização da lambda no workflow *Update Lambda* está de forma manual, usando a branch master como base, necessário rodar ela somente após a RUN 2 [Repositório Terraform](https://github.com/postech-fiap-4soat-g01/aws-infrastructure-live) tiver executado, pois ela atualizada a lambda que essa run criará.
 
-Caso prefira, é possível realizar o download da [collection](https://github.com/postech-fiap-4soat-g01/FastFoodTotem/blob/main/FastFoodTotem%20-%20Jornada%20dos%20Usu%C3%A1rios.postman_collection.json) e utilizar no postman.
+Fluxo:
+* RUN 1 do terraform
+* Workflow para realizar o deply ao ECR
+* RUN 2 do terraform
+* Worflow manual de atualização da lambda
 
 ## Execução do proejto
 Para executar o projeto é fácil, basta apenas definir os valores paras as variáveis de ambiente dele, que se encontram no launchsettings.json da API que está presente na camada Presentation.
