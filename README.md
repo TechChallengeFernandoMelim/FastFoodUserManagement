@@ -2,10 +2,21 @@
 
 O repositorio FastFoodUserManagement tem por objetivo implementar uma Lambda Function responsável por realizar a criação e autenticação de usuários utilizando o AWS Cognito.
 
+## Github Actions
+### Necessário
+* Configurar no GitHub as *Secrets and variables*, entrando em *Actions* e adicionando na parte *Repository secrets* a seguinte:
+  * AWS_ACCESS_KEY_ID 
+  * AWS_SECRET_ACCESS_KEY
+* Rodar a primeira run no [Repositório Terraform](https://github.com/postech-fiap-4soat-g01/aws-infrastructure-live), para criação do ECR e RDS do SQL
+
+Esse projeto tem um workflow de subir a imagem do projeto ao ECR ao realizar o merge para a branch main.
+A atualização da lambda no workflow *Update Lambda* está de forma manual, usando a branch master como base, necessário rodar ela somente após a RUN 2 [Repositório Terraform](https://github.com/postech-fiap-4soat-g01/aws-infrastructure-live) tiver executado, pois ela atualizada a lambda que essa run criará.
+
+Caso prefira, é possível realizar o download da [collection](https://github.com/postech-fiap-4soat-g01/FastFoodTotem/blob/main/FastFoodTotem%20-%20Jornada%20dos%20Usu%C3%A1rios.postman_collection.json) e utilizar no postman.
+
 ## Execução do proejto
 Para executar o projeto é fácil, basta apenas definir os valores paras as variáveis de ambiente dele, que se encontram no launchsettings.json da API que está presente na camada Presentation.
 Após isso, basta executar o projeto da forma que preferir, nós utilizamos o Docker para isso.
-
 
 ### Variáveis de ambiente
 Todas as variáveis de ambiente do projeto visam fazer integração com algum serviço da AWS. Explicaremos a finalidade de cada uma:
