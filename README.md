@@ -14,7 +14,7 @@ A atualização da lambda no workflow *Update Lambda* está de forma manual, usa
 
 Fluxo:
 * RUN 1 do terraform
-* Workflow para realizar o deply ao ECR
+* Workflow para realizar o deploy da imagem no ECR
 * RUN 2 do terraform
 * Worflow manual de atualização da lambda
 
