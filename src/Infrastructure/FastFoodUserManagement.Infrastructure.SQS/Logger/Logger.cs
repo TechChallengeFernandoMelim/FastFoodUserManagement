@@ -12,7 +12,7 @@ public class Logger(AmazonSQSClient sqsClient) : ILogger
         {
             { "StackTrace",   new MessageAttributeValue { DataType = "String", StringValue = stackTrace } },
             { "ExceptionMessage",  new MessageAttributeValue { DataType = "String", StringValue = message } },
-            { "Exception", new MessageAttributeValue { DataType = "String", StringValue = exception } },
+            { "Ex", new MessageAttributeValue { DataType = "String", StringValue = exception } },
         };
 
         var sendMessageRequest = new SendMessageRequest
