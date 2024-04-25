@@ -10,8 +10,6 @@
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
-		<PackageReference Include="AWS.Logger.NLog" Version="3.2.1" />
-		<PackageReference Include="NLog" Version="5.2.8" />
 	</ItemGroup>
 
 
@@ -20,6 +18,7 @@
 		<ProjectReference Include="..\..\Core\FastFoodUserManagement.Domain\FastFoodUserManagement.Domain.csproj" />
 		<ProjectReference Include="..\FastFoodManagement.Infrastructure.Persistance\FastFoodManagement.Infrastructure.Persistance.csproj" />
 		<ProjectReference Include="..\FastFoodUserManagement.Infrastructure.Cognito\FastFoodUserManagement.Infrastructure.Cognito.csproj" />
+		<ProjectReference Include="..\FastFoodUserManagement.Infrastructure.SQS\FastFoodUserManagement.Infrastructure.SQS.csproj" />
 	</ItemGroup>
 
 </Project>
