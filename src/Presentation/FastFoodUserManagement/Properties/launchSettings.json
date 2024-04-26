@@ -24,7 +24,7 @@
         "AWS_ACCESS_KEY_DYNAMO": "",
         "AWS_SECRET_KEY_DYNAMO": "",
         "AWS_TABLE_NAME_DYNAMO": "",
-        "AWS_EMPLOYEE_POOL_ID": "",
+        "AWS_USER_POOL_ID": "",
         "AWS_CLIENT_ID_COGNITO": "",
         "GUEST_EMAIL": "",
         "GUEST_IDENTIFICATION": "",
