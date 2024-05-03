@@ -23,7 +23,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodUserManagement.Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodUserManagement.Infrastructure.Cognito", "src\Infrastructure\FastFoodUserManagement.Infrastructure.Cognito\FastFoodUserManagement.Infrastructure.Cognito.csproj", "{2C9942B7-E05D-4435-819C-1A1463E01119}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastFoodUserManagement.Infrastructure.SQS", "src\Infrastructure\FastFoodUserManagement.Infrastructure.SQS\FastFoodUserManagement.Infrastructure.SQS.csproj", "{C16EEEC7-C436-4669-B266-79362E668A15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodUserManagement.Infrastructure.SQS", "src\Infrastructure\FastFoodUserManagement.Infrastructure.SQS\FastFoodUserManagement.Infrastructure.SQS.csproj", "{C16EEEC7-C436-4669-B266-79362E668A15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3F2FB875-AC7A-4358-B5F4-53955708D154}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\deploy.yaml = .github\workflows\deploy.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
