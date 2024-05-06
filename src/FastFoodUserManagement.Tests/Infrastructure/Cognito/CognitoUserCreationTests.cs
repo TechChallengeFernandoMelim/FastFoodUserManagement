@@ -3,16 +3,19 @@ using Amazon.CognitoIdentityProvider;
 using FastFoodUserManagement.Domain.Entities;
 using FastFoodUserManagement.Infrastructure.Cognito.Creation;
 using Moq;
+using Amazon.Runtime;
 
 namespace FastFoodUserManagement.Tests.Infrastructure.Cognito
 {
     public class CognitoUserCreationTests
     {
+        AWSCredentials credentials = new BasicAWSCredentials("trest", "test");
+
         [Fact]
         public async Task CreateUser_ValidUser_ReturnsUsername()
         {
             // Arrange
-            var cognitoMock = new Mock<AmazonCognitoIdentityProviderClient>();
+            var cognitoMock = new Mock<AmazonCognitoIdentityProviderClient>(credentials, Amazon.RegionEndpoint.USEast1);
             var user = new UserEntity { Email = "test@example.com", Identification = "password123" };
             var cancellationToken = new CancellationToken();
             var expectedUsername = "test@example.com";

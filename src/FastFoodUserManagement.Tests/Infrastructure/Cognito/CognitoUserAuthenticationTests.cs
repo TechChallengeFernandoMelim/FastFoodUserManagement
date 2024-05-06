@@ -7,16 +7,19 @@ using Moq;
 using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
 using Amazon.Runtime.Internal.Util;
 using System.Collections.Specialized;
+using Amazon.Runtime;
 
 namespace FastFoodUserManagement.Tests.Infrastructure.Cognito;
 
 public class CognitoUserAuthenticationTests
 {
+    AWSCredentials credentials = new BasicAWSCredentials("trest", "test");
+
     [Fact]
     public async Task AuthenticateUser_ValidUser_ReturnsToken()
     {
         // Arrange
-        var cognitoMock = new Mock<AmazonCognitoIdentityProviderClient>();
+        var cognitoMock = new Mock<AmazonCognitoIdentityProviderClient>(credentials, Amazon.RegionEndpoint.USEast1);
         var cacheMock = new Mock<IMemoryCache>();
         var mockCacheEntry = new Mock<ICacheEntry>();
 
@@ -62,7 +65,7 @@ public class CognitoUserAuthenticationTests
     public async Task AuthenticateUser_CachedTokenExists_ReturnsCachedToken()
     {
         // Arrange
-        var cognitoMock = new Mock<AmazonCognitoIdentityProviderClient>();
+        var cognitoMock = new Mock<AmazonCognitoIdentityProviderClient>(credentials, Amazon.RegionEndpoint.USEast1);
 
         var cache = new MemoryCache(new MemoryCacheOptions());
 
