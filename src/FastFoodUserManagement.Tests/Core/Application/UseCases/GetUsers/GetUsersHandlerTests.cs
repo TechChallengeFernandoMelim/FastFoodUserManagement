@@ -17,6 +17,7 @@ public class GetUsersHandlerTests
 
         var handler = new GetUsersHandler(userRepositoryMock.Object, mapperMock.Object);
         var cancellationToken = new CancellationToken();
+        var validator = new GetUsersValidator();
 
         var users = new List<UserEntity>
             {

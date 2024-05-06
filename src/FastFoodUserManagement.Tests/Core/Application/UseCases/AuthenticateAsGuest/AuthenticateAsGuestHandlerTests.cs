@@ -15,6 +15,7 @@ public class AuthenticateAsGuestHandlerTests
         var handler = new AuthenticateAsGuestHandler(userAuthenticationMock.Object);
         var cancellationToken = new CancellationToken();
         var expectedToken = "guestToken";
+        var validator = new AuthenticateAsGuestValidator();
 
         Environment.SetEnvironmentVariable("GUEST_EMAIL", "guest@example.com");
         Environment.SetEnvironmentVariable("GUEST_IDENTIFICATION", "guestPassword");
