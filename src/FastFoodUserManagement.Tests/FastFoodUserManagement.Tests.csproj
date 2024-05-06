@@ -22,10 +22,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Core\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Core\FastFoodUserManagement.Application\FastFoodUserManagement.Application.csproj" />
 		<ProjectReference Include="..\Core\FastFoodUserManagement.Domain\FastFoodUserManagement.Domain.csproj" />
 		<ProjectReference Include="..\Infrastructure\FastFoodManagement.Infrastructure.Persistance\FastFoodManagement.Infrastructure.Persistance.csproj" />
