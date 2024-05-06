@@ -1,23 +1,44 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 
-    <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
-  </PropertyGroup>
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="6.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="xunit" Version="2.5.3" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="coverlet.collector" Version="6.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+		<PackageReference Include="Moq" Version="4.20.70" />
+		<PackageReference Include="xunit" Version="2.5.3" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Using Include="Xunit" />
-  </ItemGroup>
+	<ItemGroup>
+		<Using Include="Xunit" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Core\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Core\FastFoodUserManagement.Application\FastFoodUserManagement.Application.csproj" />
+		<ProjectReference Include="..\Core\FastFoodUserManagement.Domain\FastFoodUserManagement.Domain.csproj" />
+		<ProjectReference Include="..\Infrastructure\FastFoodManagement.Infrastructure.Persistance\FastFoodManagement.Infrastructure.Persistance.csproj" />
+		<ProjectReference Include="..\Infrastructure\FastFoodUserManagement.Infrastructure.Cognito\FastFoodUserManagement.Infrastructure.Cognito.csproj" />
+		<ProjectReference Include="..\Infrastructure\FastFoodUserManagement.Infrastructure.IoC\FastFoodUserManagement.Infrastructure.IoC.csproj" />
+		<ProjectReference Include="..\Infrastructure\FastFoodUserManagement.Infrastructure.SQS\FastFoodUserManagement.Infrastructure.SQS.csproj" />
+		<ProjectReference Include="..\Presentation\FastFoodUserManagement\FastFoodUserManagement.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<SonarQubeSetting Include="sonar.coverage.exclusions">
+			<Value>Program.cs, ./Middlewares/ErrorHandlingMiddleware</Value>
+		</SonarQubeSetting>
+	</ItemGroup>
 
 </Project>

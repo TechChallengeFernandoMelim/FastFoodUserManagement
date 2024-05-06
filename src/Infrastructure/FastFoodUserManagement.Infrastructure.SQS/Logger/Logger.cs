@@ -6,7 +6,7 @@ namespace FastFoodUserManagement.Infrastructure.SQS.Logger;
 
 public class Logger(AmazonSQSClient sqsClient) : ILogger
 {
-    public async Task Log(string stackTrace, string message, string exception)
+    public virtual async Task Log(string stackTrace, string message, string exception)
     {
         Dictionary<string, MessageAttributeValue> messageAttributes = new Dictionary<string, MessageAttributeValue>
         {

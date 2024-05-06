@@ -76,10 +76,4 @@ public class UserController(IValidationNotifications validationNotifications, IM
         var data = await mediator.Send(new GetUsersRequest(), cancellationToken);
         return await Return(new ApiBaseResponse<GetUsersResponse>() { Data = data });
     }
-
-    [HttpGet("NotImplementedException")]
-    public async Task<IActionResult> NotImplementedException(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException("Endpoint para testar logger - FastFoodUserManagement.");
-    }
 }
