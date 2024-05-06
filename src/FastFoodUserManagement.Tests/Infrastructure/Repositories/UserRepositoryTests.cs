@@ -129,4 +129,28 @@ public class UserRepositoryTests
         Assert.Equal("Jane", user2.Name);
         Assert.Equal("jane@example.com", user2.Email);
     }
+
+    [Fact]
+    public async Task GetUsersAsync_UsersNotExist_ReturnsNul()
+    {
+        // Arrange
+        var dynamoDbMock = new Mock<IAmazonDynamoDB>();
+        dynamoDbMock.Setup(x => x.ScanAsync(It.IsAny<ScanRequest>(), It.IsAny<CancellationToken>()))
+                    .ReturnsAsync(new ScanResponse
+                    {
+                        Items = new List<Dictionary<string, AttributeValue>>
+                        {
+
+                        }
+                    });
+
+        var userRepository = new UserRepository(dynamoDbMock.Object);
+        var cancellationToken = new CancellationToken();
+
+        // Act
+        var result = await userRepository.GetUsersAsync(cancellationToken);
+
+        // Assert
+        Assert.Null(result);
+    }
 }

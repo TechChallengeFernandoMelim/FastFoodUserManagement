@@ -26,4 +26,8 @@
 			<Value>Program.cs, ./Middlewares/ErrorHandlingMiddleware</Value>
 		</SonarQubeSetting>
 	</ItemGroup>
+
+	<PropertyGroup>
+		<SonarQubeExclude>true</SonarQubeExclude>
+	</PropertyGroup>
 </Project>
