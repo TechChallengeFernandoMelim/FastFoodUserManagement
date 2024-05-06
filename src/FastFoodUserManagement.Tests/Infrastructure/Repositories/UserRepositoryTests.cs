@@ -60,6 +60,30 @@ public class UserRepositoryTests
     }
 
     [Fact]
+    public async Task GetUserByCPFOrEmailAsync_UserNotExists_ReturnsNull()
+    {
+        // Arrange
+        var dynamoDbMock = new Mock<IAmazonDynamoDB>();
+        dynamoDbMock.Setup(x => x.ScanAsync(It.IsAny<ScanRequest>(), It.IsAny<CancellationToken>()))
+                    .ReturnsAsync(new ScanResponse
+                    {
+                        Items = new List<Dictionary<string, AttributeValue>>
+                        {
+
+                        }
+                    });
+
+        var userRepository = new UserRepository(dynamoDbMock.Object);
+        var cancellationToken = new CancellationToken();
+
+        // Act
+        var result = await userRepository.GetUserByCPFOrEmailAsync("123", "john@example.com", cancellationToken);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
     public async Task GetUsersAsync_UsersExist_ReturnsListOfUsers()
     {
         // Arrange
