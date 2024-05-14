@@ -29,3 +29,12 @@ Conforme foi solicitado, estou postando aqui as evidências de cobertura dos tes
 ![Coverage2](./images/coverage2.png)
 
 Através das imagens é possível observar que a cobertura por testes unitários ficou superior a 80%, conforme solicitado.
+
+### Endpoints
+
+Os endpoints presentes nesse projeto são:
+
+- POST /User/CreateUser: responsável por criar um usuário.
+- GET /User/AuthenticateUser/{cpf}: responsável por autenticar um usuário com apenas seu CPF utilizando o cognito.
+- GET /User/AuthenticateAsGuest: responsável por autenticar o usuário como anônimo.
+- GET /User/GetUsers: responsável por retornar todos os usuários.
