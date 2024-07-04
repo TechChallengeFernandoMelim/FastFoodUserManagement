@@ -2,6 +2,7 @@
 using FastFoodUserManagement.Application.UseCases.AuthenticateAsGuest;
 using FastFoodUserManagement.Application.UseCases.AuthenticateUser;
 using FastFoodUserManagement.Application.UseCases.CreateUser;
+using FastFoodUserManagement.Application.UseCases.DeleteUserData;
 using FastFoodUserManagement.Application.UseCases.GetUsers;
 using FastFoodUserManagement.Domain.Validations;
 using MediatR;
@@ -75,5 +76,21 @@ public class UserController(IValidationNotifications validationNotifications, IM
     {
         var data = await mediator.Send(new GetUsersRequest(), cancellationToken);
         return await Return(new ApiBaseResponse<GetUsersResponse>() { Data = data });
+    }
+
+    /// <summary>
+    /// Retrieve a list of all users.
+    /// </summary>
+    /// <returns>List of users</returns>
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiBaseResponse<DeleteUserDataResponse>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiBaseResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ApiBaseResponse))]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(ApiBaseResponse<DeleteUserDataResponse>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ApiBaseResponse))]
+    [HttpDelete("DeleteUserData/{cpf}")]
+    public async Task<IActionResult> DeleteUserData([FromRoute] string cpf, CancellationToken cancellationToken)
+    {
+        var data = await mediator.Send(new DeleteUserDataRequest(cpf), cancellationToken);
+        return await Return(new ApiBaseResponse<DeleteUserDataResponse>() { });
     }
 }

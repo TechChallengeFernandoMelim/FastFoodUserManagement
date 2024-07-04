@@ -9,8 +9,8 @@ namespace FastFoodUserManagement.Application.UseCases.CreateUser;
 
 public class CreateUserHandler(
     IUserRepository userRepository, 
-    IMapper mapper, IValidationNotifications 
-    validationNotifications, 
+    IMapper mapper, 
+    IValidationNotifications validationNotifications, 
     IUserCreation userCreation) : IRequestHandler<CreateUserRequest, CreateUserResponse>
 {
     public async Task<CreateUserResponse> Handle(CreateUserRequest request, CancellationToken cancellationToken)

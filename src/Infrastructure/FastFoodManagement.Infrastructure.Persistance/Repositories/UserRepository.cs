@@ -72,4 +72,22 @@ public class UserRepository(IAmazonDynamoDB dynamoDb) : IUserRepository
 
         return users;
     }
+
+    public async Task DeleteUserData(string cpf, CancellationToken cancellationToken)
+    {
+        var deleteItemRequest = new DeleteItemRequest
+        {
+            TableName = Environment.GetEnvironmentVariable("AWS_TABLE_NAME_DYNAMO"),
+            Key = new Dictionary<string, AttributeValue>
+            {
+                { "pk", new AttributeValue { S = cpf } },
+                { "sk", new AttributeValue { S = cpf } }
+            },
+            ConditionExpression = "attribute_exists(pk)"
+        };
+
+        var response = await dynamoDb.DeleteItemAsync(deleteItemRequest, cancellationToken);
+        if (response.HttpStatusCode != HttpStatusCode.OK)
+            throw new Exception("Failed to delete user data from the database.");
+    }
 }

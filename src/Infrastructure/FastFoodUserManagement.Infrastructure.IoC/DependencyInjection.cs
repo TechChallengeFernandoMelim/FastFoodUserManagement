@@ -11,6 +11,7 @@ using FastFoodUserManagement.Domain.Contracts.Repositories;
 using FastFoodUserManagement.Domain.Validations;
 using FastFoodUserManagement.Infrastructure.Cognito.Authentication;
 using FastFoodUserManagement.Infrastructure.Cognito.Creation;
+using FastFoodUserManagement.Infrastructure.Cognito.Delete;
 using FastFoodUserManagement.Infrastructure.SQS.Logger;
 using FluentValidation;
 using MediatR;
@@ -62,6 +63,7 @@ public static class DependencyInjection
         services.AddSingleton(cognitoProvider);
         services.AddSingleton<IUserCreation, CognitoUserCreation>();
         services.AddSingleton<IUserAuthentication, CognitoUserAuthentication>();
+        services.AddSingleton<IUserDelete, CognitoDeleteUser>();
     }
 
     private static void ConfigureAutomapper(IServiceCollection services)
