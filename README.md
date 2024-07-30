@@ -26,7 +26,6 @@ Para subir o container, basta executar o seguinte comando:
 ``` 
 docker run -e AWS_ACCESS_KEY_DYNAMO=""
 -e AWS_SECRET_KEY_DYNAMO=""
-
 -e AWS_USER_POOL_ID=""
 -e AWS_CLIENT_ID_COGNITO=""
 -e GUEST_EMAIL=""
